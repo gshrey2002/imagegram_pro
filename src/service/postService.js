@@ -1,3 +1,6 @@
+// import { createPost } from "../controller/postController.js";
+
+import { createPost } from "../repositories/postRepositories.js";
 
 export const createPostService = async (createPostObejct) => {
     const caption = createPostObejct.caption?.trim();
