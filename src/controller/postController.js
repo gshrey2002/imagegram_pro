@@ -1,4 +1,4 @@
-import { createPostService } from "../service/postService.js";
+import { createPostService, findAllPostService, findPostByIdService } from "../service/postService.js";
 
 
 export async function createPost(req, res) {
@@ -15,10 +15,59 @@ export async function createPost(req, res) {
     //         message: "Image is required"
     //     });
     // }
-    return res.json({
+    return res.status(201).json({
         success:true,
         message:"Post Created Successfully",
         data:post
 
     })
 }
+
+export async function getAllPost(req,res){
+    const post=await findAllPostService();
+
+    return res.status(200).json({
+        success:true,
+        data:post
+    })
+}
+
+
+export async function getPostById(req, res) {
+    try {
+      const  postId  = req.params.id;
+      console.log(postId);
+  
+      // Validate ID
+      if (!postId) {
+        return res.status(400).json({
+          success: false,
+          message: "Post ID is required",
+        });
+      }
+  
+      const post = await findPostByIdService( postId );
+  
+      // Check if post exists
+      if (!post) {
+        return res.status(404).json({
+          success: false,
+          message: "Post not found",
+        });
+      }
+  
+      return res.status(200).json({
+        success: true,
+        message: "Post fetched successfully",
+        data: post,
+      });
+    } catch (error) {
+      console.error("Error fetching post:", error);
+  
+      return res.status(500).json({
+        success: false,
+        message: "An error occurred while fetching the post",
+      });
+    }
+  }
+  
