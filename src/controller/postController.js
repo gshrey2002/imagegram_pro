@@ -24,12 +24,18 @@ export async function createPost(req, res) {
 }
 
 export async function getAllPost(req,res){
-    const post=await findAllPostService();
-
-    return res.status(200).json({
-        success:true,
-        data:post
-    })
+try {
+  let offset=req.query.offset || 0;
+    let limit=req.query.limit || 10;
+      const post=await findAllPostService(offset,limit);
+  
+      return res.status(200).json({
+          success:true,
+          data:post
+      })
+} catch (error) {
+  console.log(error);
+}
 }
 
 

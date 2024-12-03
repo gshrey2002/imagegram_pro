@@ -1,6 +1,6 @@
 // import { createPost } from "../controller/postController.js";
 
-import { createPost, findAllPost, findPostById } from "../repositories/postRepositories.js";
+import { countAllPost, createPost, findAllPost, findPostById } from "../repositories/postRepositories.js";
 
 export const createPostService = async (createPostObejct) => {
     const caption = createPostObejct.caption?.trim();
@@ -12,10 +12,15 @@ export const createPostService = async (createPostObejct) => {
     return post;
 }
 
-export const findAllPostService=async ()=>{
-    const post=await findAllPost();
+export const findAllPostService=async (offset,limit)=>{
+    // let offset=
+    const post=await findAllPost(offset,limit);
+    const totalDocument=await countAllPost();
+    const totalPage=Math.ceil(totalDocument/limit); 
+    const currentPage = Math.floor(offset / limit) + 1;
+    // const currentPage=offset/limit + 1;   
 
-    return post;
+    return {post,totalPage,totalDocument,currentPage};
 }
 
 export const findPostByIdService=async (id)=>{
