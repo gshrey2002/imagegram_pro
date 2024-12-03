@@ -9,6 +9,9 @@ export const s3uploader=multer({
         bucket:AWS_BUCKET_NAME,
         acl:"public-read",
         key:function(req,file,cb){
+            if(!file){
+                return cb(new Error("File is required"),null);
+            }
             const uniqueSuffix=Date.now() + "-" + Math.round(Math.random()* 1e9 );
             cb(null,file.fieldname+"-"+uniqueSuffix + "." +file.mimetype.split("/")[1]);
         }
