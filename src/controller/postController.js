@@ -1,4 +1,4 @@
-import { createPostService, findAllPostService, findPostByIdService } from "../service/postService.js";
+import { createPostService, deletePostbyIdService, findAllPostService, findPostByIdService } from "../service/postService.js";
 
 
 export async function createPost(req, res) {
@@ -77,3 +77,30 @@ export async function getPostById(req, res) {
     }
   }
   
+export async function deletePostbyId(req,res){
+try {
+  const  postId  = req.params.id;
+  console.log(postId);
+
+  // Validate ID
+  if (!postId) {
+    return res.status(400).json({
+      success: false,
+      message: "Post ID is required",
+    });
+  }
+  const deletedPost=await deletePostbyIdService(postId);
+
+  res.status(200).json({
+    success: true,
+    message: "Post deleted successfully",
+   
+  })
+} catch (error) {
+  console.log(error);
+  return res.status(500).json({
+    success: false,
+    message: "An error occurred while deleting the post",
+  });
+}
+}
