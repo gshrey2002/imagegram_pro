@@ -1,4 +1,4 @@
-import { createPostService, deletePostbyIdService, findAllPostService, findPostByIdService } from "../service/postService.js";
+import { createPostService, deletePostbyIdService, findAllPostService, findPostByIdService, updatePostService } from "../service/postService.js";
 
 
 export async function createPost(req, res) {
@@ -91,6 +91,13 @@ try {
   }
   const deletedPost=await deletePostbyIdService(postId);
 
+  if(!deletedPost){
+    return res.status(404).json({
+      success: false,
+      message: "Post not found",
+    });
+  }
+
   res.status(200).json({
     success: true,
     message: "Post deleted successfully",
@@ -104,3 +111,22 @@ try {
   });
 }
 }
+
+export async function updatePostbyId(req,res){
+try {
+  const postId=req.params.id;
+  const data=req.body;
+  const updatedPost=await updatePostService(postId,data);
+  res.status(200).json({
+    success:true,
+    message:"Post Updated Successfully",
+    data:updatedPost
+  })
+} catch (error) {
+  console.log(error);
+  return res.status(500).json({
+    success: false,
+    message: "An error occurred while updating the post",
+  });
+}
+} 

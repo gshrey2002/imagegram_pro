@@ -1,6 +1,6 @@
 // import { createPost } from "../controller/postController.js";
 
-import { countAllPost, createPost, deletePost, findAllPost, findPostById } from "../repositories/postRepositories.js";
+import { countAllPost, createPost, deletePost, findAllPost, findPostById, updatePost } from "../repositories/postRepositories.js";
 
 export const createPostService = async (createPostObejct) => {
     const caption = createPostObejct.caption?.trim();
@@ -33,8 +33,19 @@ return post;
 export const deletePostbyIdService=async(id)=>{
    try {
     const deletedPost=await deletePost(id);
+    return deletedPost;
 
    } catch (error) {
     console.log(error);
    }
+}
+
+export const updatePostService=async(id,data)=>{
+try {
+    const updatedPost=await updatePost(id,data);
+    return updatedPost;
+} catch (error) {
+    console.log(error);
+}
+
 }

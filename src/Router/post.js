@@ -8,7 +8,7 @@ router.post("/post",s3uploader.single("image"),createPost);
 router.get("/allPost",getAllPost);
 router.get("/post/:id",getPostById);
 router.delete("/post/:id",deletePostbyId);  
-
+router.put("/post/:id",s3uploader.single("image"),createPost);
 
 
 export default router
