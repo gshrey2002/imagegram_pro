@@ -30,7 +30,7 @@ export const singInUserService = async (createUserObject) => {
                 message: "User not found"
             }
         }
-        const passwordMatch = await bcrypt.compare(createUserObject.password, user.password);
+        const passwordMatch =  bcrypt.compareSync(createUserObject.password, user.password);
         if(!passwordMatch) {
             throw {
                 status: 401,
@@ -42,6 +42,6 @@ export const singInUserService = async (createUserObject) => {
 
         return token;
     } catch (error) {
-        console.log(error);
+        throw error;
     }
 }
