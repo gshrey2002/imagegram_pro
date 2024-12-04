@@ -45,3 +45,12 @@ export const singInUserService = async (createUserObject) => {
         throw error;
     }
 }
+
+export const isUserExist = async (email) => {
+    try {
+        const user = await findUserByEmail(email);
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}

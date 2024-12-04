@@ -3,6 +3,7 @@ import { createUserController, signInController } from "../controller/userContro
 import { zodSignupSchema } from "../validators/signupValidator.js";
 import { validate } from "../validators/zodValidator.js";
 import { zodSignInSchema } from "../validators/zodSignInValidator.js";
+// import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router=Express.Router();
 
