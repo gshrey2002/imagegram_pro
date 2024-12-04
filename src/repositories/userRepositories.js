@@ -34,5 +34,6 @@ export const createUser=async(user)=>{
 
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
