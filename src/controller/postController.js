@@ -125,7 +125,7 @@ try {
 }
   return res.status(500).json({
     success: false,
-    // message: "An error occurred while deleting the post",
+   
     message:error.message
   });
 }
