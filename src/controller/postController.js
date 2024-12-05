@@ -2,6 +2,7 @@ import { createPostService, deletePostbyIdService, findAllPostService, findPostB
 
 
 export async function createPost(req, res) {
+  const userDetails = req.user;
     console.log(req.file); // req.file.location
     if(!req.file || !req.file.location) {
         return res.status(400).json({
@@ -11,8 +12,11 @@ export async function createPost(req, res) {
     }
 
     const post=await createPostService({
+      
+        user:userDetails._id,
         caption:req.body.caption,
         image:req.file.location
+
     })
     // // call the service layer function
     // if(!req.file || !req.file.location) {
@@ -31,6 +35,7 @@ export async function createPost(req, res) {
 
 export async function getAllPost(req,res){
 try {
+  console.log(req.user);
   let offset=req.query.offset || 0;
     let limit=req.query.limit || 10;
       const post=await findAllPostService(offset,limit);

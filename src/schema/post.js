@@ -1,14 +1,14 @@
 import mongoose, { Mongoose } from "mongoose";
 
 const postSchema=new mongoose.Schema({
-    // user:{
+    user:{
 
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:"User",
-    //     required:true,
-    //     minLength:5,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        // required:true,
+        // minLength:5,
 
-    // },
+    },
     caption:{
         type:String,
         minLength:5,
