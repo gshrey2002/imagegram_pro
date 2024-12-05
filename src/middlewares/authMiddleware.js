@@ -31,3 +31,12 @@ export const authMiddleware=async (req,res,next)=>{
    
 }
 
+export const isAdminMiddleware=(req,res,next)=>{
+    if(req.user.role!=="admin") {
+        return res.status(403).json({
+            success:false,
+            message:"Forbidden, Only Admin can access this route"
+        })
+    }
+    next();
+} 

@@ -38,7 +38,7 @@ export const singInUserService = async (createUserObject) => {
             }
         }
 
-        const token=genrateJWTToken({email:user.email,_id:user._id,username:user.username});
+        const token=genrateJWTToken({email:user.email,_id:user._id,username:user.username,role:user.Role||"user"});
 
         return token;
     } catch (error) {
