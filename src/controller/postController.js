@@ -92,6 +92,7 @@ export async function deletePostbyId(req,res){
 try {
   const  postId  = req.params.id;
   console.log(postId);
+  console.log("_idd "+req.user._id);
 
   // Validate ID
   if (!postId) {
@@ -100,7 +101,7 @@ try {
       message: "Post ID is required",
     });
   }
-  const deletedPost=await deletePostbyIdService(postId);
+  const deletedPost=await deletePostbyIdService(postId,req.user._id);
 
   if(!deletedPost){
     return res.status(404).json({
@@ -115,10 +116,17 @@ try {
    
   })
 } catch (error) {
-  console.log(error);
+  // console.log(error);
+  if(error.status) {
+    return res.status(error.status).json({
+        success: false,
+        message: error.message
+    })
+}
   return res.status(500).json({
     success: false,
-    message: "An error occurred while deleting the post",
+    // message: "An error occurred while deleting the post",
+    message:error.message
   });
 }
 }

@@ -31,15 +31,26 @@ const post = await findPostById(id);
 return post;
 }
 
-export const deletePostbyIdService=async(id)=>{
-   try {
+export const deletePostbyIdService=async(id,user)=>{
+//    try {
+
+    const post=await findPostById(id);
+    console.log("post user "+post.user);
+    console.log("user "+user);
+    if(post.user!=user){
+        throw {
+            status:401,
+            message:"Unauthorized"
+        }
+    }
     const deletedPost=await deletePost(id);
     return deletedPost;
-
-   } catch (error) {
-    console.log(error);
-   }
 }
+//    } catch (error) {
+//     throw error;
+
+//    }
+// }
 
 export const updatePostService=async(id,data)=>{
 try {

@@ -36,7 +36,7 @@ export const createPost =async (caption,image,user)=>{
 
 export const deletePost=async (id)=>{
     try {
-        const deletedPost=await Post.deleteOne(id);
+        const deletedPost=await Post.findByIdAndDelete(id);
         return deletedPost;
     } catch (error) {
         console.log(error);
