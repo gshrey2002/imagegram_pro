@@ -2,7 +2,7 @@ import Post from "../schema/post.js"
 
 export const findAllPost=async (offset,limit)=>{
     try {
-        const posts=await Post.find().sort({createdAt:-1}).skip(offset).limit(limit);
+        const posts=await Post.find().sort({createdAt:-1}).skip(offset).limit(limit).populate("user","email");
     return posts;
     } catch (error) {
         console.log(error);
